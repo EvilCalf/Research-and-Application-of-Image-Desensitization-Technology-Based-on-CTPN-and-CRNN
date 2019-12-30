@@ -194,8 +194,8 @@
   \fancyhead[C]{\cjc@hf@font 投稿期刊名\\English Name}%
   \fancyhead[R]{\cjc@hf@font Vol. \cjc@volume\quad No. \cjc@number\\\cjc@doi}%
 }
-\newcommand\cjc@clc{*****}
-\newcommand\cjc@doi{10.1000/182}
+\newcommand\cjc@clc{分类号}
+\newcommand\cjc@doi{DOI号}
 \newcommand\cjcsetup{\kvsetkeys{cjc}}
 \kv@set@family@handler{cjc}{\expandafter\gdef\csname cjc@#1\endcsname{#2}}
 \newcommand\cjc@author{%

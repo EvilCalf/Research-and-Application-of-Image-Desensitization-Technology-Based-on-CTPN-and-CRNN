@@ -545,7 +545,7 @@ version 2005/12/01 or later.
   \fancyhead[LO]{\cjc@hf@font \cjc@number{} 期}%
   \fancyhead[CO]{\cjc@hf@font 作者名等：论文题目}%
   \fancyhead[RO,LE]{\cjc@hf@font\thepage}%
-  \fancyhead[CE]{\cjc@hf@font 计算机学报}%
+  \fancyhead[CE]{\cjc@hf@font 投稿期刊名}%
   \fancyhead[RE]{\cjc@hf@font \the\year{} 年}%
 }
 \pagestyle{main}
@@ -556,7 +556,7 @@ version 2005/12/01 or later.
 \fancypagestyle{plain}{%
   \fancyhf{}%
   \fancyhead[L]{\cjc@hf@font 第 \cjc@volume{} 卷\quad 第 \cjc@number{} 期\\\the\year{} 年 \the\month{} 月}%
-  \fancyhead[C]{\cjc@hf@font 计算机学报\\CHINESE JOURNAL OF COMPUTERS}%
+  \fancyhead[C]{\cjc@hf@font 投稿期刊名\\English name}%
   \fancyhead[R]{\cjc@hf@font Vol. \cjc@volume\quad No. \cjc@number\\\cjc@doi}%
 }
 %    \end{macrocode}
@@ -566,8 +566,8 @@ version 2005/12/01 or later.
 %
 % \begin{macro}{\cjcsetup}
 %    \begin{macrocode}
-\newcommand\cjc@clc{*****}
-\newcommand\cjc@doi{10.1000/182}
+\newcommand\cjc@clc{分类号}
+\newcommand\cjc@doi{DOI号}
 \newcommand\cjcsetup{\kvsetkeys{cjc}}
 \kv@set@family@handler{cjc}{\expandafter\gdef\csname cjc@#1\endcsname{#2}}
 % \kv@define@key{cjc}{affiliations}{\kvsetkeys{aff}{#1}}
