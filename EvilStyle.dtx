@@ -45,10 +45,10 @@ version 2005/12/01 or later.
 \fi
 %</internal>
 %<*driver>
-\ProvidesFile{cjc.dtx}
+\ProvidesFile{EvilStyle.dtx}
 %</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-%<class>\ProvidesClass{cjc}
+%<class>\ProvidesClass{EvilStyle}
 %<*class>
   [2019/06/01 v0.1 A template framework for Chinese journals]
 %</class>
@@ -211,7 +211,7 @@ version 2005/12/01 or later.
 %
 % \GetFileInfo{\jobname.dtx}
 %
-% \title{\cls{cjc} 使用说明}
+% \title{\cls{EvilStyle} 使用说明}
 % \author{Zeping Lee\thanks{zepinglee AT gmail.com}}
 % \date{\filedate\qquad\fileversion}
 % \maketitle
@@ -238,9 +238,9 @@ version 2005/12/01 or later.
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\newif\ifcjc@chinese
-\DeclareOption{chinese}{\cjc@chinesetrue}
-\DeclareOption{english}{\cjc@chinesefalse}
+\newif\ifEvilStyle@chinese
+\DeclareOption{chinese}{\EvilStyle@chinesetrue}
+\DeclareOption{english}{\EvilStyle@chinesefalse}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexart}}
 \ExecuteOptions{chinese}
 \ProcessOptions\relax
@@ -250,7 +250,7 @@ version 2005/12/01 or later.
 % \subsection{加载文档类和宏包}
 %
 %    \begin{macrocode}
-\ifcjc@chinese
+\ifEvilStyle@chinese
   \PassOptionsToClass{scheme=chinese}{ctexart}
 \else
   \PassOptionsToClass{scheme=plain}{ctexart}
@@ -266,7 +266,7 @@ version 2005/12/01 or later.
 % 检测 ctexart 版本，如果版本过低会报错
 %    \begin{macrocode}
 \@ifclasslater{ctexart}{2016/05/16}{}{
-  \ClassError{cjc}{%
+  \ClassError{EvilStyle}{%
     This template requires TeX Live\MessageBreak 2016 or later version}{}
 }
 %    \end{macrocode}
@@ -292,24 +292,24 @@ version 2005/12/01 or later.
 %
 % \subsubsection{字体库}
 %
-% \begin{macro}{\cjc@strifeq}
+% \begin{macro}{\EvilStyle@strifeq}
 % 使用 \LaTeX3 的功能判断字符串是否相等。这里也可以使用 \pkg{xstring} 宏包。
 %    \begin{macrocode}
-\newcommand\cjc@strifeq{\csname str_if_eq_x:nnTF\endcsname}
+\newcommand\EvilStyle@strifeq{\csname str_if_eq_x:nnTF\endcsname}
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\cjc@fontset}
-% 将 \pkg{ctex} 的 \opt{fontset} 存在 \cs{cjc@fontset} 方便 \LaTeXe{} 调用。
+% \begin{macro}{\EvilStyle@fontset}
+% 将 \pkg{ctex} 的 \opt{fontset} 存在 \cs{EvilStyle@fontset} 方便 \LaTeXe{} 调用。
 %    \begin{macrocode}
-\newcommand\cjc@fontset{\csname g__ctex_fontset_tl\endcsname}
+\newcommand\EvilStyle@fontset{\csname g__ctex_fontset_tl\endcsname}
 %    \end{macrocode}
 % \end{macro}
 %
 % 大部分学位论文都要求西文字体使用 Times New Roman，
 % 但是在 Linux 下没有这两个字体，所以使用它们的克隆版 TeX Gyre Termes。
 %    \begin{macrocode}
-\cjc@strifeq{\cjc@fontset}{fandol}{
+\EvilStyle@strifeq{\EvilStyle@fontset}{fandol}{
   \setmainfont[
     Extension      = .otf,
     UprightFont    = *-regular,
@@ -332,7 +332,7 @@ version 2005/12/01 or later.
     BoldItalicFont = *-bolditalic,
     Scale          = MatchLowercase,
   ]{texgyrecursor}
-  \ClassWarningNoLine{cjc}{%
+  \ClassWarningNoLine{EvilStyle}{%
     You are using Fandol font family.\MessageBreak
     Some glyphs may be missing.\MessageBreak
     Please switch to a high-quality font set
@@ -340,7 +340,7 @@ version 2005/12/01 or later.
 }{
   \setmainfont{Times New Roman}
   \setsansfont[Scale=MatchLowercase]{Arial}
-  \cjc@strifeq{\cjc@fontset}{mac}{
+  \EvilStyle@strifeq{\EvilStyle@fontset}{mac}{
     \setmonofont[Scale=MatchLowercase]{Menlo}
   }{
     \setmonofont[Scale=MatchLowercase]{Courier New}
@@ -355,7 +355,7 @@ version 2005/12/01 or later.
 % \end{enumerate}
 % 所以需要重新配置一部分，参考 \pkg{ctex} 宏包。
 %    \begin{macrocode}
-\cjc@strifeq{\cjc@fontset}{mac}{
+\EvilStyle@strifeq{\EvilStyle@fontset}{mac}{
   \setCJKmainfont[
        UprightFont = * Light,
           BoldFont = Heiti SC Medium,
@@ -372,7 +372,7 @@ version 2005/12/01 or later.
   \xeCJKsetwidth{‘’“”}{1em}
 }{
   \xeCJKsetup{EmboldenFactor=2}
-  \cjc@strifeq{\cjc@fontset}{windows}{
+  \EvilStyle@strifeq{\EvilStyle@fontset}{windows}{
     \IfFileExists{C:/bootfont.bin}{
       \setCJKmainfont[
         BoldFont   = SimHei,
@@ -408,13 +408,13 @@ version 2005/12/01 or later.
 % 注意，\cs{IfFontExistsTF} 是 \pkg{fontspec} 2017/01/20 v2.5c 才提供的；
 % 而 XITS 字体于 2018-10-03 更改了字体的文件名。
 %    \begin{macrocode}
-\newif\ifcjc@xitsnew
+\newif\ifEvilStyle@xitsnew
 \@ifpackagelater{fontspec}{2017/01/20}{
   \IfFontExistsTF{XITSMath-Regular.otf}{
-    \cjc@xitsnewtrue
+    \EvilStyle@xitsnewtrue
   }{}
 }{}
-\ifcjc@xitsnew
+\ifEvilStyle@xitsnew
   \setmathfont[
     Extension    = .otf,
     BoldFont     = XITSMath-Bold,
@@ -431,21 +431,21 @@ version 2005/12/01 or later.
 \fi
 %    \end{macrocode}
 %
-% \begin{macro}{\cjc@circlefont}
+% \begin{macro}{\EvilStyle@circlefont}
 % 五级节标题和脚注需要使用带圈数字，
 % 但 Times New Roman 没有这些符号的字形，而华文宋体和中易宋体提供了这些字形，
-% 配置在 \cs{cjc@circlefont}。
+% 配置在 \cs{EvilStyle@circlefont}。
 %    \begin{macrocode}
-\cjc@strifeq{\cjc@fontset}{mac}{
-  \newfontfamily\cjc@circlefont{Songti SC Light}
+\EvilStyle@strifeq{\EvilStyle@fontset}{mac}{
+  \newfontfamily\EvilStyle@circlefont{Songti SC Light}
 }{
-  \cjc@strifeq{\cjc@fontset}{windows}{
-    \newfontfamily\cjc@circlefont{SimSun}
+  \EvilStyle@strifeq{\EvilStyle@fontset}{windows}{
+    \newfontfamily\EvilStyle@circlefont{SimSun}
   }{
-    \ifcjc@xitsnew
-      \newfontfamily\cjc@circlefont{XITS-Regular.otf}
+    \ifEvilStyle@xitsnew
+      \newfontfamily\EvilStyle@circlefont{XITS-Regular.otf}
     \else
-      \newfontfamily\cjc@circlefont{xits-regular.otf}
+      \newfontfamily\EvilStyle@circlefont{xits-regular.otf}
     \fi
   }
 }
@@ -482,20 +482,20 @@ version 2005/12/01 or later.
 % \footnote{\url{https://github.com/CTeX-org/ctex-kit/issues/389}}
 % 所以要根据语言设置正确的字体。
 %    \begin{macrocode}
-\newcommand\cjc@setchinese{%
+\newcommand\EvilStyle@setchinese{%
   \xeCJKResetPunctClass
 }
-\newcommand\cjc@setenglish{%
+\newcommand\EvilStyle@setenglish{%
   \xeCJKDeclareCharClass{HalfLeft}{"2018, "201C}%
   \xeCJKDeclareCharClass{HalfRight}{%
     "00B7, "2019, "201D, "2013, "2014, "2025, "2026, "2E3A%
   }%
 }
-\newcommand\cjc@setdefaultlanguage{%
-  \ifcjc@chinese
-    \cjc@setchinese
+\newcommand\EvilStyle@setdefaultlanguage{%
+  \ifEvilStyle@chinese
+    \EvilStyle@setchinese
   \else
-    \cjc@setenglish
+    \EvilStyle@setenglish
   \fi
 }
 %    \end{macrocode}
@@ -533,20 +533,20 @@ version 2005/12/01 or later.
 % 页眉与该部分的章标题相同，宋体 10.5 磅（五号）居中。
 % 页码：宋体 10.5 磅、页面下脚居中。
 %    \begin{macrocode}
-\newcommand\cjc@hf@font{\small}
+\newcommand\EvilStyle@hf@font{\small}
 %    \end{macrocode}
 %
 % 重定义默认的 |plain| page style，会显示页眉和页脚。
 %    \begin{macrocode}
-\newcommand\cjc@number{1}
-\newcommand\cjc@volume{1}
+\newcommand\EvilStyle@number{1}
+\newcommand\EvilStyle@volume{1}
 \fancypagestyle{main}{%
   \fancyhf{}%
-  \fancyhead[LO]{\cjc@hf@font \cjc@number{} 期}%
-  \fancyhead[CO]{\cjc@hf@font 作者名等：论文题目}%
-  \fancyhead[RO,LE]{\cjc@hf@font\thepage}%
-  \fancyhead[CE]{\cjc@hf@font 投稿期刊名}%
-  \fancyhead[RE]{\cjc@hf@font \the\year{} 年}%
+  \fancyhead[LO]{\EvilStyle@hf@font \EvilStyle@number{} 期}%
+  \fancyhead[CO]{\EvilStyle@hf@font 作者名等：论文题目}%
+  \fancyhead[RO,LE]{\EvilStyle@hf@font\thepage}%
+  \fancyhead[CE]{\EvilStyle@hf@font 投稿期刊名}%
+  \fancyhead[RE]{\EvilStyle@hf@font \the\year{} 年}%
 }
 \pagestyle{main}
 %    \end{macrocode}
@@ -555,28 +555,28 @@ version 2005/12/01 or later.
 %    \begin{macrocode}
 \fancypagestyle{plain}{%
   \fancyhf{}%
-  \fancyhead[L]{\cjc@hf@font 第 \cjc@volume{} 卷\quad 第 \cjc@number{} 期\\\the\year{} 年 \the\month{} 月}%
-  \fancyhead[C]{\cjc@hf@font 投稿期刊名\\English name}%
-  \fancyhead[R]{\cjc@hf@font Vol. \cjc@volume\quad No. \cjc@number\\\cjc@doi}%
+  \fancyhead[L]{\EvilStyle@hf@font 第 \EvilStyle@volume{} 卷\quad 第 \EvilStyle@number{} 期\\\the\year{} 年 \the\month{} 月}%
+  \fancyhead[C]{\EvilStyle@hf@font 投稿期刊名\\English Name}%
+  \fancyhead[R]{\EvilStyle@hf@font Vol. \EvilStyle@volume\quad No. \EvilStyle@number\\\EvilStyle@doi}%
 }
 %    \end{macrocode}
 %
 %
 % \subsection{标题}
 %
-% \begin{macro}{\cjcsetup}
+% \begin{macro}{\EvilStylesetup}
 %    \begin{macrocode}
-\newcommand\cjc@clc{分类号}
-\newcommand\cjc@doi{DOI号}
-\newcommand\cjcsetup{\kvsetkeys{cjc}}
-\kv@set@family@handler{cjc}{\expandafter\gdef\csname cjc@#1\endcsname{#2}}
-% \kv@define@key{cjc}{affiliations}{\kvsetkeys{aff}{#1}}
+\newcommand\EvilStyle@clc{分类号}
+\newcommand\EvilStyle@doi{DOI号}
+\newcommand\EvilStylesetup{\kvsetkeys{EvilStyle}}
+\kv@set@family@handler{EvilStyle}{\expandafter\gdef\csname EvilStyle@#1\endcsname{#2}}
+% \kv@define@key{EvilStyle}{affiliations}{\kvsetkeys{aff}{#1}}
 % \kv@set@family@handler{aff}{%
 %   \kv@define@key{affname}{name}{%
-%     \expandafter\gdef\csname cjc@aff@#1@name\endcsname{##1}%
+%     \expandafter\gdef\csname EvilStyle@aff@#1@name\endcsname{##1}%
 %   }%
 %   \kv@define@key{affname}{name*}{%
-%     \expandafter\gdef\csname cjc@aff@#1@en@name\endcsname{##1}%
+%     \expandafter\gdef\csname EvilStyle@aff@#1@en@name\endcsname{##1}%
 %   }%
 %   \kvsetkeys{affname}{#2}%
 % }
@@ -585,8 +585,8 @@ version 2005/12/01 or later.
 % \kv@define@key{author}{affiliations}{}
 % \kv@define@key{author}{bio}{}
 % \kv@define@key{author}{email}{}
-\newcommand\cjc@author{%
-%   \@for\a:=\cjc@authors\do{%
+\newcommand\EvilStyle@author{%
+%   \@for\a:=\EvilStyle@authors\do{%
 %     \kvsetkeysexpandafter{author}{\a}%
 %   }%
 }
@@ -599,35 +599,35 @@ version 2005/12/01 or later.
 \def\@maketitle{%
   \newpage
   \null
-  \cjc@make@zh@title
-  \cjc@make@en@title
+  \EvilStyle@make@zh@title
+  \EvilStyle@make@en@title
 }
-\def\cjc@make@zh@title{%
+\def\EvilStyle@make@zh@title{%
   \vspace*{20\bp@}%
   \begingroup
     \centering
-    \heiti\zihao{2}\cjc@title\par
+    \heiti\zihao{2}\EvilStyle@title\par
   \endgroup
   \vspace*{7.8\bp@}%
   \begingroup
     \zihao{-5}%
-    \textbf{摘\quad 要}\quad\cjc@abstract\par
-    关键词\quad\cjc@keywords\par
-    中图法分类号\quad\cjc@clc\qquad
-    DOI 号\quad\cjc@doi\par
+    \textbf{摘\quad 要}\quad\EvilStyle@abstract\par
+    关键词\quad\EvilStyle@keywords\par
+    中图法分类号\quad\EvilStyle@clc\qquad
+    DOI 号\quad\EvilStyle@doi\par
   \endgroup
 }
-\def\cjc@make@en@title{%
+\def\EvilStyle@make@en@title{%
   \vspace*{12\bp@}%
   \begingroup
     \centering
-    \bfseries\zihao{4}\@nameuse{cjc@title*}\par
+    \bfseries\zihao{4}\@nameuse{EvilStyle@title*}\par
   \endgroup
   \vspace{5\bp@}%
   \begingroup
     \zihao{-5}%
-    \textbf{Abstract}\quad\@nameuse{cjc@abstract*}\par
-    \textbf{Key words}\quad\@nameuse{cjc@keywords*}\par
+    \textbf{Abstract}\quad\@nameuse{EvilStyle@abstract*}\par
+    \textbf{Key words}\quad\@nameuse{EvilStyle@keywords*}\par
   \endgroup
 }
 %    \end{macrocode}
@@ -781,7 +781,7 @@ version 2005/12/01 or later.
 % \begin{macro}{\ldots}
 % 省略号一律居中，所以 \cs{ldots} 不再居于底部。
 %    \begin{macrocode}
-\ifcjc@chinese
+\ifEvilStyle@chinese
   \def\mathellipsis{\cdots}
 \fi
 %    \end{macrocode}
@@ -866,36 +866,36 @@ version 2005/12/01 or later.
 % \subsubsection{数学定理}
 %
 %    \begin{macrocode}
-\newtheoremstyle{cjc}
+\newtheoremstyle{EvilStyle}
   {\z@}{\z@}
   {}{2\ccwd}
   {\bfseries}{.}
   {\ccwd}{}
-\theoremstyle{cjc}
+\theoremstyle{EvilStyle}
 %    \end{macrocode}
 % 定义新的定理
 %    \begin{macrocode}
-\newcommand\cjc@assertionname{断言}
-\newcommand\cjc@assumptionname{假设}
-\newcommand\cjc@axiomname{公理}
-\newcommand\cjc@corollaryname{推论}
-\newcommand\cjc@definitionname{定义}
-\newcommand\cjc@examplename{例}
-\newcommand\cjc@lemmaname{引理}
-\newcommand\cjc@proofname{证明}
-\newcommand\cjc@propositionname{命题}
-\newcommand\cjc@remarkname{注}
-\newcommand\cjc@theoremname{定理}
-\newtheorem{theorem}             {\cjc@theoremname}
-\newtheorem{assertion}  [theorem]{\cjc@assertionname}
-\newtheorem{axiom}      [theorem]{\cjc@axiomname}
-\newtheorem{corollary}  [theorem]{\cjc@corollaryname}
-\newtheorem{lemma}      [theorem]{\cjc@lemmaname}
-\newtheorem{proposition}[theorem]{\cjc@propositionname}
-\newtheorem{assumption}          {\cjc@assumptionname}
-\newtheorem{definition}          {\cjc@definitionname}
-\newtheorem{example}             {\cjc@examplename}
-\newtheorem*{remark}             {\cjc@remarkname}
+\newcommand\EvilStyle@assertionname{断言}
+\newcommand\EvilStyle@assumptionname{假设}
+\newcommand\EvilStyle@axiomname{公理}
+\newcommand\EvilStyle@corollaryname{推论}
+\newcommand\EvilStyle@definitionname{定义}
+\newcommand\EvilStyle@examplename{例}
+\newcommand\EvilStyle@lemmaname{引理}
+\newcommand\EvilStyle@proofname{证明}
+\newcommand\EvilStyle@propositionname{命题}
+\newcommand\EvilStyle@remarkname{注}
+\newcommand\EvilStyle@theoremname{定理}
+\newtheorem{theorem}             {\EvilStyle@theoremname}
+\newtheorem{assertion}  [theorem]{\EvilStyle@assertionname}
+\newtheorem{axiom}      [theorem]{\EvilStyle@axiomname}
+\newtheorem{corollary}  [theorem]{\EvilStyle@corollaryname}
+\newtheorem{lemma}      [theorem]{\EvilStyle@lemmaname}
+\newtheorem{proposition}[theorem]{\EvilStyle@propositionname}
+\newtheorem{assumption}          {\EvilStyle@assumptionname}
+\newtheorem{definition}          {\EvilStyle@definitionname}
+\newtheorem{example}             {\EvilStyle@examplename}
+\newtheorem*{remark}             {\EvilStyle@remarkname}
 %    \end{macrocode}
 % \pkg{amsthm} 单独定义了 proof 环境，这里重新定义以满足格式要求。
 % 原本模仿 \pkg{amsthm} 写成 |\item[\hskip\labelsep\hskip2\ccwd #1\hskip\ccwd]|，
@@ -925,14 +925,14 @@ version 2005/12/01 or later.
 %
 % 这些宏包并非格式要求，但是为了方便同学们使用，在这里进行简单设置。
 %    \begin{macrocode}
-\newcommand\cjc@atendpackage{\csname ctex_at_end_package:nn\endcsname}
+\newcommand\EvilStyle@atendpackage{\csname ctex_at_end_package:nn\endcsname}
 %    \end{macrocode}
 %
 %
 % \subsubsection{\pkg{hyperref} 宏包}
 %
 %    \begin{macrocode}
-\cjc@atendpackage{hyperref}{
+\EvilStyle@atendpackage{hyperref}{
   \hypersetup{
     bookmarksnumbered  = true,
     bookmarksopen      = true,
@@ -975,7 +975,7 @@ version 2005/12/01 or later.
 % 设置中文的 \cs{autoref}。
 % \footnote{\url{https://tex.stackexchange.com/a/66150/82731}}
 %    \begin{macrocode}
-  \ifcjc@chinese
+  \ifEvilStyle@chinese
     \def\equationautorefname~#1\null{公式~(#1)\null}
     \def\footnoteautorefname{脚注}
     \def\itemautorefname~#1\null{第~#1 项\null}
@@ -995,13 +995,13 @@ version 2005/12/01 or later.
 % \subsubsection{\pkg{siunitx} 宏包}
 %
 %    \begin{macrocode}
-\cjc@atendpackage{siunitx}{
+\EvilStyle@atendpackage{siunitx}{
   \sisetup{
     group-minimum-digits = 4,
     separate-uncertainty = true,
     inter-unit-product   = \ensuremath{{}\cdot{}},
   }
-  \ifcjc@chinese
+  \ifEvilStyle@chinese
     \sisetup{
       list-final-separator = { 和 },
       list-pair-separator  = { 和 },

@@ -1,16 +1,15 @@
-\documentclass{cjc}
+\documentclass{EvilStyle}
 
 \usepackage{booktabs}
 \usepackage{siunitx}
 \usepackage{hyperref}
-
+\usepackage{graphicx}
 
 \setlength{\headheight}{21.50314pt}
 
-
 \begin{document}
 
-\cjcsetup{
+\EvilStylesetup{
   title        = {基于CTPN和CRNN的图像脱敏技术研究和应用},
   title*       = {Research and Application of Image Desensitization Technology \\Based on CTPN and CRNN},
   authors      = {
@@ -58,8 +57,9 @@
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=\linewidth]{example-fig.pdf}
+  \includegraphics[width=0.7\linewidth]{image/test.pdf}
   \caption{图片说明 *字体为小 5 号，图片应为黑白图，图中的子图要有子图说明*}
+  \label{test}
 \end{figure}
 
 \begin{table}[htb]
@@ -96,7 +96,7 @@
 
 \nocite{*}
 
-\bibliographystyle{cjc}
+\bibliographystyle{EvilStyle}
 \bibliography{refs}
 
 

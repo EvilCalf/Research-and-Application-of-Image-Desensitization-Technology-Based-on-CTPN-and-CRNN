@@ -1,15 +1,33 @@
+%%
+%% This is file `EvilStyle.cls',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% EvilStyle.dtx  (with options: `class')
+%% 
+%% Copyright (C) 2019-2019 by Zeping Lee <zepinglee AT gmail.com>
+%% 
+%% This file may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    https://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\ProvidesClass{cjc}
+\ProvidesClass{EvilStyle}
   [2019/06/01 v0.1 A template framework for Chinese journals]
 \RequirePackage{ifxetex}
 \RequireXeTeX
-\newif\ifcjc@chinese
-\DeclareOption{chinese}{\cjc@chinesetrue}
-\DeclareOption{english}{\cjc@chinesefalse}
+\newif\ifEvilStyle@chinese
+\DeclareOption{chinese}{\EvilStyle@chinesetrue}
+\DeclareOption{english}{\EvilStyle@chinesefalse}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexart}}
 \ExecuteOptions{chinese}
 \ProcessOptions\relax
-\ifcjc@chinese
+\ifEvilStyle@chinese
   \PassOptionsToClass{scheme=chinese}{ctexart}
 \else
   \PassOptionsToClass{scheme=plain}{ctexart}
@@ -17,7 +35,7 @@
 \PassOptionsToPackage{quiet}{xeCJK}
 \LoadClass[UTF8,a4paper,twoside,twocolumn,zihao=5,linespread=1.08]{ctexart}[2016/05/16]
 \@ifclasslater{ctexart}{2016/05/16}{}{
-  \ClassError{cjc}{%
+  \ClassError{EvilStyle}{%
     This template requires TeX Live\MessageBreak 2016 or later version}{}
 }
 \RequirePackage{kvdefinekeys}
@@ -31,9 +49,9 @@
 \RequirePackage{caption}
 \RequirePackage{url}
 \RequirePackage[numbers,sort&compress]{natbib}
-\newcommand\cjc@strifeq{\csname str_if_eq_x:nnTF\endcsname}
-\newcommand\cjc@fontset{\csname g__ctex_fontset_tl\endcsname}
-\cjc@strifeq{\cjc@fontset}{fandol}{
+\newcommand\EvilStyle@strifeq{\csname str_if_eq_x:nnTF\endcsname}
+\newcommand\EvilStyle@fontset{\csname g__ctex_fontset_tl\endcsname}
+\EvilStyle@strifeq{\EvilStyle@fontset}{fandol}{
   \setmainfont[
     Extension      = .otf,
     UprightFont    = *-regular,
@@ -56,7 +74,7 @@
     BoldItalicFont = *-bolditalic,
     Scale          = MatchLowercase,
   ]{texgyrecursor}
-  \ClassWarningNoLine{cjc}{%
+  \ClassWarningNoLine{EvilStyle}{%
     You are using Fandol font family.\MessageBreak
     Some glyphs may be missing.\MessageBreak
     Please switch to a high-quality font set
@@ -64,13 +82,13 @@
 }{
   \setmainfont{Times New Roman}
   \setsansfont[Scale=MatchLowercase]{Arial}
-  \cjc@strifeq{\cjc@fontset}{mac}{
+  \EvilStyle@strifeq{\EvilStyle@fontset}{mac}{
     \setmonofont[Scale=MatchLowercase]{Menlo}
   }{
     \setmonofont[Scale=MatchLowercase]{Courier New}
   }
 }
-\cjc@strifeq{\cjc@fontset}{mac}{
+\EvilStyle@strifeq{\EvilStyle@fontset}{mac}{
   \setCJKmainfont[
        UprightFont = * Light,
           BoldFont = Heiti SC Medium,
@@ -87,7 +105,7 @@
   \xeCJKsetwidth{‘’“”}{1em}
 }{
   \xeCJKsetup{EmboldenFactor=2}
-  \cjc@strifeq{\cjc@fontset}{windows}{
+  \EvilStyle@strifeq{\EvilStyle@fontset}{windows}{
     \IfFileExists{C:/bootfont.bin}{
       \setCJKmainfont[
         BoldFont   = SimHei,
@@ -112,13 +130,13 @@
   nabla      = upright,
   partial    = upright,
 }
-\newif\ifcjc@xitsnew
+\newif\ifEvilStyle@xitsnew
 \@ifpackagelater{fontspec}{2017/01/20}{
   \IfFontExistsTF{XITSMath-Regular.otf}{
-    \cjc@xitsnewtrue
+    \EvilStyle@xitsnewtrue
   }{}
 }{}
-\ifcjc@xitsnew
+\ifEvilStyle@xitsnew
   \setmathfont[
     Extension    = .otf,
     BoldFont     = XITSMath-Bold,
@@ -133,35 +151,35 @@
   ]{xits-math}
   \setmathfont[range={cal,bfcal},StylisticSet=1]{xits-math.otf}
 \fi
-\cjc@strifeq{\cjc@fontset}{mac}{
-  \newfontfamily\cjc@circlefont{Songti SC Light}
+\EvilStyle@strifeq{\EvilStyle@fontset}{mac}{
+  \newfontfamily\EvilStyle@circlefont{Songti SC Light}
 }{
-  \cjc@strifeq{\cjc@fontset}{windows}{
-    \newfontfamily\cjc@circlefont{SimSun}
+  \EvilStyle@strifeq{\EvilStyle@fontset}{windows}{
+    \newfontfamily\EvilStyle@circlefont{SimSun}
   }{
-    \ifcjc@xitsnew
-      \newfontfamily\cjc@circlefont{XITS-Regular.otf}
+    \ifEvilStyle@xitsnew
+      \newfontfamily\EvilStyle@circlefont{XITS-Regular.otf}
     \else
-      \newfontfamily\cjc@circlefont{xits-regular.otf}
+      \newfontfamily\EvilStyle@circlefont{xits-regular.otf}
     \fi
   }
 }
 \newdimen\bp@
 \bp@=1bp
-\newcommand\cjc@setchinese{%
+\newcommand\EvilStyle@setchinese{%
   \xeCJKResetPunctClass
 }
-\newcommand\cjc@setenglish{%
+\newcommand\EvilStyle@setenglish{%
   \xeCJKDeclareCharClass{HalfLeft}{"2018, "201C}%
   \xeCJKDeclareCharClass{HalfRight}{%
     "00B7, "2019, "201D, "2013, "2014, "2025, "2026, "2E3A%
   }%
 }
-\newcommand\cjc@setdefaultlanguage{%
-  \ifcjc@chinese
-    \cjc@setchinese
+\newcommand\EvilStyle@setdefaultlanguage{%
+  \ifEvilStyle@chinese
+    \EvilStyle@setchinese
   \else
-    \cjc@setenglish
+    \EvilStyle@setenglish
   \fi
 }
 \geometry{
@@ -176,62 +194,62 @@
 \pagestyle{fancy}
 \let\sectionmark\@gobble
 \renewcommand\headrulewidth{0.4\p@}
-\newcommand\cjc@hf@font{\small}
-\newcommand\cjc@number{1}
-\newcommand\cjc@volume{1}
+\newcommand\EvilStyle@hf@font{\small}
+\newcommand\EvilStyle@number{1}
+\newcommand\EvilStyle@volume{1}
 \fancypagestyle{main}{%
   \fancyhf{}%
-  \fancyhead[LO]{\cjc@hf@font \cjc@number{} 期}%
-  \fancyhead[CO]{\cjc@hf@font 作者名等：论文题目}%
-  \fancyhead[RO,LE]{\cjc@hf@font\thepage}%
-  \fancyhead[CE]{\cjc@hf@font 投稿期刊名}%
-  \fancyhead[RE]{\cjc@hf@font \the\year{} 年}%
+  \fancyhead[LO]{\EvilStyle@hf@font \EvilStyle@number{} 期}%
+  \fancyhead[CO]{\EvilStyle@hf@font 作者名等：论文题目}%
+  \fancyhead[RO,LE]{\EvilStyle@hf@font\thepage}%
+  \fancyhead[CE]{\EvilStyle@hf@font 投稿期刊}%
+  \fancyhead[RE]{\EvilStyle@hf@font \the\year{} 年}%
 }
 \pagestyle{main}
 \fancypagestyle{plain}{%
   \fancyhf{}%
-  \fancyhead[L]{\cjc@hf@font 第 \cjc@volume{} 卷\quad 第 \cjc@number{} 期\\\the\year{} 年 \the\month{} 月}%
-  \fancyhead[C]{\cjc@hf@font 投稿期刊名\\English Name}%
-  \fancyhead[R]{\cjc@hf@font Vol. \cjc@volume\quad No. \cjc@number\\\cjc@doi}%
+  \fancyhead[L]{\EvilStyle@hf@font 第 \EvilStyle@volume{} 卷\quad 第 \EvilStyle@number{} 期\\\the\year{} 年 \the\month{} 月}%
+  \fancyhead[C]{\EvilStyle@hf@font 投稿期刊\\English Name}%
+  \fancyhead[R]{\EvilStyle@hf@font Vol. \EvilStyle@volume\quad No. \EvilStyle@number\\\EvilStyle@doi}%
 }
-\newcommand\cjc@clc{分类号}
-\newcommand\cjc@doi{DOI号}
-\newcommand\cjcsetup{\kvsetkeys{cjc}}
-\kv@set@family@handler{cjc}{\expandafter\gdef\csname cjc@#1\endcsname{#2}}
-\newcommand\cjc@author{%
+\newcommand\EvilStyle@clc{分类号}
+\newcommand\EvilStyle@doi{DOI号}
+\newcommand\EvilStylesetup{\kvsetkeys{EvilStyle}}
+\kv@set@family@handler{EvilStyle}{\expandafter\gdef\csname EvilStyle@#1\endcsname{#2}}
+\newcommand\EvilStyle@author{%
 }
 \def\@maketitle{%
   \newpage
   \null
-  \cjc@make@zh@title
-  \cjc@make@en@title
+  \EvilStyle@make@zh@title
+  \EvilStyle@make@en@title
 }
-\def\cjc@make@zh@title{%
+\def\EvilStyle@make@zh@title{%
   \vspace*{20\bp@}%
   \begingroup
     \centering
-    \heiti\zihao{2}\cjc@title\par
+    \heiti\zihao{2}\EvilStyle@title\par
   \endgroup
   \vspace*{7.8\bp@}%
   \begingroup
     \zihao{-5}%
-    \textbf{摘\quad 要}\quad\cjc@abstract\par
-    关键词\quad\cjc@keywords\par
-    中图法分类号\quad\cjc@clc\qquad
-    DOI 号\quad\cjc@doi\par
+    \textbf{摘\quad 要}\quad\EvilStyle@abstract\par
+    关键词\quad\EvilStyle@keywords\par
+    中图法分类号\quad\EvilStyle@clc\qquad
+    DOI 号\quad\EvilStyle@doi\par
   \endgroup
 }
-\def\cjc@make@en@title{%
+\def\EvilStyle@make@en@title{%
   \vspace*{12\bp@}%
   \begingroup
     \centering
-    \bfseries\zihao{4}\@nameuse{cjc@title*}\par
+    \bfseries\zihao{4}\@nameuse{EvilStyle@title*}\par
   \endgroup
   \vspace{5\bp@}%
   \begingroup
     \zihao{-5}%
-    \textbf{Abstract}\quad\@nameuse{cjc@abstract*}\par
-    \textbf{Key words}\quad\@nameuse{cjc@keywords*}\par
+    \textbf{Abstract}\quad\@nameuse{EvilStyle@abstract*}\par
+    \textbf{Key words}\quad\@nameuse{EvilStyle@keywords*}\par
   \endgroup
 }
 \renewenvironment{abstract}{%
@@ -300,7 +318,7 @@
 \captionsetup[table]{
   font = {heiti,small},
 }
-\ifcjc@chinese
+\ifEvilStyle@chinese
   \def\mathellipsis{\cdots}
 \fi
 \protected\def\le{\leqslant}
@@ -331,33 +349,33 @@
 \newcommand\dif{\mathop{}\!\mathrm{d}}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
-\newtheoremstyle{cjc}
+\newtheoremstyle{EvilStyle}
   {\z@}{\z@}
   {}{2\ccwd}
   {\bfseries}{.}
   {\ccwd}{}
-\theoremstyle{cjc}
-\newcommand\cjc@assertionname{断言}
-\newcommand\cjc@assumptionname{假设}
-\newcommand\cjc@axiomname{公理}
-\newcommand\cjc@corollaryname{推论}
-\newcommand\cjc@definitionname{定义}
-\newcommand\cjc@examplename{例}
-\newcommand\cjc@lemmaname{引理}
-\newcommand\cjc@proofname{证明}
-\newcommand\cjc@propositionname{命题}
-\newcommand\cjc@remarkname{注}
-\newcommand\cjc@theoremname{定理}
-\newtheorem{theorem}             {\cjc@theoremname}
-\newtheorem{assertion}  [theorem]{\cjc@assertionname}
-\newtheorem{axiom}      [theorem]{\cjc@axiomname}
-\newtheorem{corollary}  [theorem]{\cjc@corollaryname}
-\newtheorem{lemma}      [theorem]{\cjc@lemmaname}
-\newtheorem{proposition}[theorem]{\cjc@propositionname}
-\newtheorem{assumption}          {\cjc@assumptionname}
-\newtheorem{definition}          {\cjc@definitionname}
-\newtheorem{example}             {\cjc@examplename}
-\newtheorem*{remark}             {\cjc@remarkname}
+\theoremstyle{EvilStyle}
+\newcommand\EvilStyle@assertionname{断言}
+\newcommand\EvilStyle@assumptionname{假设}
+\newcommand\EvilStyle@axiomname{公理}
+\newcommand\EvilStyle@corollaryname{推论}
+\newcommand\EvilStyle@definitionname{定义}
+\newcommand\EvilStyle@examplename{例}
+\newcommand\EvilStyle@lemmaname{引理}
+\newcommand\EvilStyle@proofname{证明}
+\newcommand\EvilStyle@propositionname{命题}
+\newcommand\EvilStyle@remarkname{注}
+\newcommand\EvilStyle@theoremname{定理}
+\newtheorem{theorem}             {\EvilStyle@theoremname}
+\newtheorem{assertion}  [theorem]{\EvilStyle@assertionname}
+\newtheorem{axiom}      [theorem]{\EvilStyle@axiomname}
+\newtheorem{corollary}  [theorem]{\EvilStyle@corollaryname}
+\newtheorem{lemma}      [theorem]{\EvilStyle@lemmaname}
+\newtheorem{proposition}[theorem]{\EvilStyle@propositionname}
+\newtheorem{assumption}          {\EvilStyle@assumptionname}
+\newtheorem{definition}          {\EvilStyle@definitionname}
+\newtheorem{example}             {\EvilStyle@examplename}
+\newtheorem*{remark}             {\EvilStyle@remarkname}
 \DeclareRobustCommand{\qed}{证毕.}
 \renewenvironment{proof}[1][\proofname]{\par
   \textbf{\proofname}.\quad
@@ -366,8 +384,8 @@
 }
 \renewcommand\bibfont{\fontsize{7.5\bp@}{14\bp@}\linespread{1}\selectfont}
 \renewcommand\@biblabel[1]{[#1]\hfill}
-\newcommand\cjc@atendpackage{\csname ctex_at_end_package:nn\endcsname}
-\cjc@atendpackage{hyperref}{
+\newcommand\EvilStyle@atendpackage{\csname ctex_at_end_package:nn\endcsname}
+\EvilStyle@atendpackage{hyperref}{
   \hypersetup{
     bookmarksnumbered  = true,
     bookmarksopen      = true,
@@ -390,7 +408,7 @@
   \@ifpackagelater{hyperref}{2019/04/27}{}{%
     \g@addto@macro\psdmapshortnames{\let\mu\textmugreek}%
   }
-  \ifcjc@chinese
+  \ifEvilStyle@chinese
     \def\equationautorefname~#1\null{公式~(#1)\null}
     \def\footnoteautorefname{脚注}
     \def\itemautorefname~#1\null{第~#1 项\null}
@@ -404,13 +422,13 @@
     \def\HyRef@autopageref#1{\hyperref[{#1}]{第~\pageref*{#1} 页}}
   \fi
 }
-\cjc@atendpackage{siunitx}{
+\EvilStyle@atendpackage{siunitx}{
   \sisetup{
     group-minimum-digits = 4,
     separate-uncertainty = true,
     inter-unit-product   = \ensuremath{{}\cdot{}},
   }
-  \ifcjc@chinese
+  \ifEvilStyle@chinese
     \sisetup{
       list-final-separator = { 和 },
       list-pair-separator  = { 和 },
